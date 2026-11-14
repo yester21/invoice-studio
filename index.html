@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>인보이스 스튜디오 — 견적서·인보이스 발행기</title>
+  <meta name="description" content="견적서·인보이스를 만들고 A4 PDF로 인쇄·저장하는 웹 도구">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Cpath d='M10 8h12v16H10z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M13 13h6M13 17h6M13 21h4' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div id="app">
+    <header id="app-header">
+      <div class="brand">
+        <span class="brand-dot">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M7 4h10v16H7z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M10 9h4M10 13h4M10 17h3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <div class="brand-text">
+          <strong>인보이스 스튜디오</strong>
+          <small>견적서 · 인보이스 발행 · 카드뉴스·블로그 스튜디오 세트</small>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-sender" class="btn btn-text" title="공급자(내) 정보 설정">공급자 정보</button>
+        <button id="btn-json-save" class="btn btn-text" title="전체 문서 JSON 내려받기">JSON 저장</button>
+        <button id="btn-json-load" class="btn btn-text" title="문서 JSON 불러오기">불러오기</button>
+        <span class="v-divider"></span>
+        <button id="btn-duplicate" class="btn btn-text" title="현재 문서 복제">복제</button>
+        <button id="btn-print" class="btn btn-primary" title="A4 PDF로 인쇄·저장 (브라우저 인쇄)">PDF로 인쇄</button>
+      </div>
+    </header>
+    <div id="app-main">
+      <aside id="doc-rail" aria-label="문서 목록"></aside>
+      <main id="preview-pane">
+        <div id="paper-scroll">
+          <div id="paper" class="paper" aria-label="문서 미리보기"></div>
+        </div>
+      </main>
+      <aside id="editor-pane" aria-label="문서 편집"></aside>
+    </div>
+  </div>
+  <div id="toast-area"></div>
+  <div id="modal-root"></div>
+  <input type="file" id="file-json" accept="application/json,.json" hidden>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
