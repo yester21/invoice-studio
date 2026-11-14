@@ -93,6 +93,10 @@ invoice-studio/
     └── util.js        # 포맷(₩, 날짜)·다운로드 유틸
 ```
 
+## 폰트
+
+UI는 Pretendard(변수 폰트, 자체호스팅, SIL OFL 1.1)를 사용하며 자간 -0.02em 보정을 적용했다.
+
 ## 라이선스
 
 MIT

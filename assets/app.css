@@ -4,6 +4,15 @@
    좌상단 타이틀+클라이언트+발송일 / 우상단 공급자 테이블 / 금액 밴드 /
    품목 테이블(품명·공급가액·세액·합산·수량·총합산금액) / 합계 / 참고사항 / 기타. */
 
+/* Pretendard — 자체호스팅 변수 폰트 (SIL OFL 1.1), 앱 UI와 A4 문서 공용 */
+@font-face {
+  font-family: "Pretendard";
+  src: url("fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ui-bg: #f5f5f7;
   --ui-surface: #ffffff;
@@ -26,10 +35,10 @@
   --header-h: 60px;
   --rail-w: 220px;
   --editor-w: 420px;
-  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+  --ui-font: "Pretendard", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
     "Helvetica Neue", "Segoe UI", Roboto, Arial, "Malgun Gothic", "맑은 고딕", sans-serif;
-  /* 문서(인쇄) 폰트 — 실제 발행 문서와 동일한 산세리프 */
-  --doc-font: "Helvetica Neue", "Apple SD Gothic Neo", "Segoe UI", Roboto, Arial, "Malgun Gothic", "맑은 고딕", sans-serif;
+  /* 문서(인쇄) 폰트 — 발행 PDF도 프리텐다드 */
+  --doc-font: "Pretendard", "Helvetica Neue", "Apple SD Gothic Neo", "Segoe UI", Roboto, Arial, "Malgun Gothic", "맑은 고딕", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +50,7 @@ html, body {
   color: var(--ui-text);
   font-family: var(--ui-font);
   font-size: 14px;
+  letter-spacing: -0.02em; /* 프리텐다드 자간 보정 */
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
