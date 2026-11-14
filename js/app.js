@@ -47,6 +47,7 @@ function openModal(title, desc, buildContent) {
   root.innerHTML = '';
   const content = el('div', { class: 'modal-body' });
   const modal = el('div', { class: 'modal', role: 'dialog', 'aria-label': title },
+    el('button', { class: 'modal-close', title: '닫기', 'aria-label': '닫기', onclick: close }, '✕'),
     el('h2', {}, title),
     desc ? el('p', { class: 'modal-desc' }, desc) : null,
     content

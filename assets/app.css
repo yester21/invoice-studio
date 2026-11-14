@@ -450,7 +450,22 @@ html, body {
   z-index: 100;
   padding: 26px 28px 28px;
 }
-.modal h2 { margin: 0 0 6px; font-size: 21px; font-weight: 600; letter-spacing: -0.2px; }
+.modal h2 { margin: 0 0 6px; padding-right: 44px; font-size: 21px; font-weight: 600; letter-spacing: -0.2px; }
+.modal-close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 34px; height: 34px;
+  border: none;
+  background: transparent;
+  color: var(--ui-faint);
+  border-radius: var(--radius-pill);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.modal-close:hover { color: var(--ui-text); background: var(--ui-fill); }
+.modal-close:focus-visible { outline: 2px solid var(--ui-primary); outline-offset: 1px; }
 .modal .modal-desc { color: var(--ui-sub); font-size: 14px; margin: 0 0 18px; line-height: 1.55; }
 .modal .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 
