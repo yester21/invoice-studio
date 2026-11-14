@@ -163,7 +163,7 @@ export function blankItem() {
 
 function defaultSender() {
   return {
-    name: '[샘플] 세오커뮤니케이션즈',
+    name: '[샘플] 가람스튜디오',
     bizNo: '000-00-00000',
     address: '서울시 ○○구 ○○로 00, 00층',
     phone: '010-0000-0000',
