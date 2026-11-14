@@ -162,13 +162,14 @@ export function blankItem() {
 }
 
 function defaultSender() {
+  // 첫 방문 안내문구 — "공급자 정보" 모달에서 채우면 모든 문서에 반영된다
   return {
-    name: '[샘플] 가람스튜디오',
-    bizNo: '000-00-00000',
-    address: '서울시 ○○구 ○○로 00, 00층',
-    phone: '010-0000-0000',
-    email: 'sample@example.com',
-    bank: '신한 / 000-000000-000000 / [샘플] 홍길동',
+    name: '상호를 입력하세요 (상단 "공급자 정보")',
+    bizNo: '사업자등록번호를 입력하세요',
+    address: '주소를 입력하세요',
+    phone: '전화번호를 입력하세요',
+    email: '이메일을 입력하세요',
+    bank: '은행 / 계좌번호 / 예금주',
   };
 }
 

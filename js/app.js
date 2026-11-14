@@ -27,7 +27,7 @@ function docTitle(doc) {
 }
 
 function clientLabel(doc) {
-  return doc.clientName || '[클라이언트명]';
+  return doc.clientName || '(클라이언트(공급받는자) 이름을 입력하세요)';
 }
 
 // ---------- 토스트 / 모달 ----------

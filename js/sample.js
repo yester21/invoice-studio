@@ -1,74 +1,73 @@
-// sample.js — 실제 발행 문서 구조를 그대로 옮긴 샘플 2건 (견적서·인보이스 각 1)
-// 문구·금액은 [샘플]로 치환했다.
+// sample.js — 첫 방문 시 로드되는 시작 템플릿 2건 (견적서·인보이스)
+// 실제 내용은 넣지 않고, 각 칸에 "무엇을 입력하는지" 안내 문구를 미리 채워둔다.
+// 사용자가 문구를 지우고 입력하면 그대로 문서가 된다.
 import { todayISO } from './util.js';
 
 export function sampleDocs() {
   return [
     {
-      id: 'sample-quote',
+      id: 'tpl-quote',
       type: 'quote',
       number: 'Q' + new Date().getFullYear() + '-001',
-      clientName: '[샘플] 주식회사 새싹컴퍼니',
-      clientContact: '담당자 홍길동 / 010-0000-0000',
+      clientName: '',
+      clientContact: '',
       issueDate: todayISO(),
       validUntil: todayISO(14),
       vatEnabled: true,
       withholding: false,
       withholdingRate: 3.3,
       bank: '',
-      etc: '작업 시작 전 호스팅·관리자 계정 정보가 필요합니다. [샘플 문구]',
+      etc: '',
       notes: [
-        '견적 유효기간은 발행일로부터 14일입니다.',
-        '작업 기간은 착수일 기준 총 5영업일입니다. [샘플]',
-        '수정 요청은 납품 후 2주 이내 2회까지 포함되며, 초과분은 별도 비용이 발생할 수 있습니다.',
-        '도메인·호스팅 비용은 본 견적에 포함되지 않습니다.',
+        '견적 유효기간은 발행일로부터 14일입니다. (필요하면 수정하세요)',
+        '여기에 참고사항을 적어주세요 — 작업 기간, 수정 요청 횟수, 견적 포함/제외 범위 등.',
       ],
       items: [
         {
-          id: 'sample-item-1',
-          name: '홈페이지 업데이트 및 보안점검',
+          id: 'tpl-quote-item-1',
+          name: '품명을 입력하세요 (예: 홈페이지 리뉴얼)',
           details: [
-            '1. PHP 업데이트 및 호환성 점검',
-            '2. 워드프레스 코어 업데이트',
-            '3. 테마 및 주요 플러그인 업데이트',
-            '4. 안티 멀웨어 업데이트 및 보안 점검',
-            '5. 서버 사이드 보안 설정 점검 및 조정',
+            '1. 상세 내역을 입력하세요 (예: 메인 페이지 1P)',
+            '2. 상세 내역을 입력하세요 (예: 서브 페이지 Np)',
+            '상세 줄은 자유롭게 추가·삭제할 수 있습니다.',
           ],
-          supply: 200000,
+          supply: 0,
           qty: 1,
         },
         {
-          id: 'sample-item-2',
-          name: '월 유지보수 (1개월)',
-          details: ['* 백업 · 업데이트 · 장애 대응 포함'],
-          supply: 90000,
+          id: 'tpl-quote-item-2',
+          name: '두 번째 품명 (예: 월 유지보수 1개월) — 필요 없으면 이 줄을 삭제하세요',
+          details: [],
+          supply: 0,
           qty: 1,
         },
       ],
     },
     {
-      id: 'sample-invoice',
+      id: 'tpl-invoice',
       type: 'invoice',
       number: 'I' + new Date().getFullYear() + '-001',
-      clientName: '[샘플] 주식회사 다올컴퍼니',
-      clientContact: '담당자 홍길동 / 010-0000-0000',
+      clientName: '',
+      clientContact: '',
       issueDate: todayISO(),
       validUntil: '',
       vatEnabled: true,
       withholding: false,
       withholdingRate: 3.3,
-      bank: '신한 / 000-000000-000000 / [샘플] 홍길동',
-      etc: '',
+      bank: '은행 / 계좌번호 / 예금주 순서로 입력하세요 (예: 신한 / 100-000-000000 / 홍길동)',
+      etc: '여기에 입금 안내 등 필요한 문구를 적어주세요. (비워두면 이 줄만 표시됩니다)',
       notes: [
-        '입금 확인 후 세금계산서를 발행합니다. [샘플]',
-        '입금 시 문서번호를 송금 메모에 함께 적어주세요.',
+        '인보이스 참고사항을 적어주세요 — 입금 기한, 세금계산서 발급 안내, 담당자 연락처 등.',
       ],
       items: [
         {
-          id: 'sample-item-3',
-          name: '홈페이지 유지보수',
-          details: ['* 멤버십 안내문구 오류 수정 등'],
-          supply: 90000,
+          id: 'tpl-invoice-item-1',
+          name: '품명을 입력하세요 (예: 9월 유지보수)',
+          details: [
+            '1. 상세 내역을 입력하세요 (예: 백업 · 업데이트 · 장애 대응)',
+            '상세 줄은 자유롭게 추가·삭제할 수 있습니다.',
+          ],
+          supply: 0,
           qty: 1,
         },
       ],
