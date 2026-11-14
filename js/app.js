@@ -256,12 +256,18 @@ function renderEditor() {
       el('div', { class: 't-sub' }, '견적서 = 유효기간 포함 / 인보이스 = 계좌 강조'),
     ),
     toggle(doc.type === 'invoice', (v) => {
+      const wasQuote = doc.type === 'quote';
       upd((d) => {
         d.type = v ? 'invoice' : 'quote';
         if (v && !d.validUntil) d.validUntil = '';
         if (!v && !d.validUntil) d.validUntil = todayISO(14);
       });
       renderEditor();
+      // 유형 전환 시 참고사항 점검 안내 — 견적 전용 문구가 인보이스에 남지 않게 (자동 삭제는 하지 않음)
+      const noteText = (doc.notes || []).join(' ');
+      if (v && wasQuote && /유효기간|견적/.test(noteText)) {
+        toast('유형이 인보이스로 바뀌었습니다. 참고사항에 견적 전용 문구(유효기간 등)가 남아 있지 않은지 확인해 주세요.', { timeout: 6500 });
+      }
     }),
   );
   pane.append(section('문서', el('div', {},
