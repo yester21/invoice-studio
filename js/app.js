@@ -61,10 +61,27 @@ function openModal(title, desc, buildContent) {
 }
 
 // ---------- 렌더 ----------
-function repaint() {
+function repaint({ editor = true } = {}) {
   renderRail();
   renderPaper();
-  renderEditor();
+  if (editor) renderEditor();
+}
+
+// 편집 패널을 재렌더링하지 않고 합계 표시만 갱신한다 (텍스트 입력 중 포커스 보호)
+function refreshEditorAmounts() {
+  if (!store.current) return;
+  const calc = calcDocument(store.current);
+  const sumBox = document.querySelector('[data-doc-amount]');
+  if (sumBox) {
+    sumBox.querySelector('span').textContent = `합계 (공급가액 ${fmt(calc.supplyTotal)} + 세액 ${fmt(calc.vatTotal)})`;
+    sumBox.querySelector('strong').textContent = calc.withholding ? `실 ${fmtWon(calc.payout)}` : fmtWon(calc.grandTotal);
+  }
+  calc.items.forEach((c, i) => {
+    const box = document.querySelector(`[data-ic-amount="${i}"]`);
+    if (!box) return;
+    box.querySelector('span').textContent = `공급가액 ${fmt(c.supplyTotal)} + 세액 ${store.current.vatEnabled ? fmt(c.vat) : 0}`;
+    box.querySelector('strong').textContent = fmtWon(c.lineSum);
+  });
 }
 
 function renderRail() {
@@ -303,7 +320,7 @@ function renderEditor() {
       ),
       toggle(doc.withholding, (v) => upd((d) => { d.withholding = v; })),
     ),
-    el('div', { class: 'ic-amount', style: 'margin-top:6px' },
+    el('div', { class: 'ic-amount', style: 'margin-top:6px', dataset: { docAmount: '1' } },
       el('span', {}, `합계 (공급가액 ${fmt(calc.supplyTotal)} + 세액 ${fmt(calc.vatTotal)})`),
       el('strong', {}, calc.withholding ? `실 ${fmtWon(calc.payout)}` : fmtWon(calc.grandTotal)),
     ),
@@ -351,11 +368,12 @@ function renderEditor() {
             d.items.splice(i, 1);
             if (!d.items.length) d.items = [{ id: uid(), name: '', details: [], supply: 0, qty: 1 }];
           });
+          renderEditor();
         } }, '✕'),
       ),
       el('div', { class: 'ic-grid' }, supplyInput, qtyInput),
       details,
-      el('div', { class: 'ic-amount' },
+      el('div', { class: 'ic-amount', dataset: { icAmount: String(i) } },
         el('span', {}, `공급가액 ${fmt(c.supplyTotal)} + 세액 ${doc.vatEnabled ? fmt(c.vat) : 0}`),
         el('strong', {}, fmtWon(c.lineSum)),
       ),
@@ -363,6 +381,7 @@ function renderEditor() {
   });
   itemsBox.append(el('button', { class: 'lines-add', onclick: () => {
     upd((d) => { d.items.push({ id: uid(), name: '', details: [], supply: 0, qty: 1 }); });
+    renderEditor();
   } }, '+ 품목 추가'));
   pane.append(section('품목', itemsBox));
 
@@ -503,7 +522,12 @@ function wireHeader() {
 
 // ---------- 스토어 이벤트 ----------
 function wireStore() {
-  store.on('docs', () => repaint());
+  store.on('docs', () => {
+    // 텍스트 입력 중 포커스 유지 — 편집 패널은 재렌더링하지 않고 합계 표시만 갱신한다.
+    // 구조 변경(품목 추가/삭제, 유형·토글)은 각 핸들러가 renderEditor를 직접 호출한다.
+    repaint({ editor: false });
+    refreshEditorAmounts();
+  });
   store.on('selection', () => repaint());
   store.on('quota-exceeded', () => {
     toast('브라우저 저장 공간 부족 — 자동저장 실패. JSON으로 백업해 주세요.', { type: 'warn', timeout: 6000 });
